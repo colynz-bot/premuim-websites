@@ -59,6 +59,42 @@
   color: var(--sugar-2);
 }
 
+/* Hover: the rule fills with pink from the left, the title leans in. */
+.reason::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--pink);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+@media (hover: hover) {
+  .reason::after {
+    transition: transform 0.8s var(--ease);
+  }
+
+  .index,
+  .title {
+    transition:
+      color 0.4s var(--ease),
+      translate 0.6s var(--ease);
+  }
+
+  .reason:hover::after {
+    transform: scaleX(1);
+  }
+
+  .reason:hover .index {
+    color: var(--pink);
+  }
+
+  .reason:hover .title {
+    translate: 6px 0;
+  }
+}
+
 @media (max-width: 899px) {
   .reasons {
     grid-template-columns: repeat(2, minmax(0, 1fr));

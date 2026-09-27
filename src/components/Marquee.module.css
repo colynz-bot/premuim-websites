@@ -1,0 +1,34 @@
+.marquee {
+  position: relative;
+  overflow: hidden;
+  padding-block: 0.1em;
+  user-select: none;
+  pointer-events: none;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+}
+
+.group {
+  flex: none;
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  padding-inline: clamp(20px, 2.6vw, 44px);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+.glint {
+  flex: none;
+  width: clamp(16px, 1.8vw, 28px);
+  height: auto;
+  fill: var(--pink);
+}

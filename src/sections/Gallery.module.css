@@ -41,33 +41,63 @@
 
 .card {
   flex: none;
-  width: clamp(260px, 25vw, 380px);
+  width: calc(min(58svh, 560px) * 0.8);
 }
 
+/* Buttons shrink to their content even as blocks: fill the card so the frame never collapses. */
+.open {
+  display: block;
+  width: 100%;
+  border-radius: 24px;
+  transition: scale 0.9s var(--ease);
+}
+
+/* 4:5 like the photos themselves, so the viewer can lift them off without a crop. */
 .frame {
   position: relative;
-  height: min(58svh, 560px);
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
   border-radius: 24px;
   overflow: hidden;
   background: var(--velvet-2);
 }
 
-.drift {
-  position: absolute;
-  inset: 0 -40px;
-}
-
 .photo {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition:
-    scale 1s var(--ease),
-    filter 0.6s var(--ease);
 }
 
-.card:hover .photo {
-  scale: 1.05;
+/* Gloss: a soft light that follows the pointer across the photo. */
+.frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.3), transparent 42%);
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .open:hover {
+    scale: 1.015;
+  }
+
+  .open:hover .frame::after {
+    opacity: 1;
+  }
+
+  .card:has(.open:hover) .index {
+    color: var(--pink);
+  }
+}
+
+.cursorless .open {
+  cursor: none;
 }
 
 .caption {
@@ -85,6 +115,7 @@
   font-weight: 620;
   letter-spacing: 0.12em;
   color: var(--sugar-3);
+  transition: color 0.4s var(--ease);
 }
 
 .end {
@@ -134,6 +165,30 @@
   transform-origin: left;
 }
 
+/* The "View" disc that replaces the cursor over the photos. */
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  pointer-events: none;
+}
+
+.disc {
+  display: grid;
+  place-items: center;
+  width: 88px;
+  height: 88px;
+  margin: -44px 0 0 -44px;
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--velvet);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 /* Swipe layout */
 .swipe {
   position: relative;
@@ -167,15 +222,6 @@
   scroll-snap-align: start;
 }
 
-.scroller .frame {
-  height: auto;
-  aspect-ratio: 4 / 5;
-}
-
-.scroller .drift {
-  inset: 0;
-}
-
 .scroller .end {
   width: min(74vw, 340px);
   align-content: center;
@@ -183,11 +229,57 @@
   scroll-snap-align: start;
 }
 
+/* Cards grow into place as they slide in from the right. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroller .card {
+      animation: arrive linear both;
+      animation-timeline: view(inline);
+      animation-range: entry 0% entry 90%;
+    }
+  }
+}
+
+@keyframes arrive {
+  from {
+    opacity: 0.4;
+    scale: 0.92;
+  }
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+}
+
 .hint {
-  margin-top: 20px;
   font-size: var(--t-label);
   font-weight: 620;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--sugar-3);
+}
+
+.dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(245 238 232 / 0.22);
+  transition:
+    width 0.45s var(--ease),
+    background-color 0.45s var(--ease);
+}
+
+.dot.on {
+  width: 20px;
+  background: var(--pink);
 }

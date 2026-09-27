@@ -1,0 +1,122 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(11 9 9 / 0.94);
+  backdrop-filter: blur(18px) saturate(1.1);
+  -webkit-backdrop-filter: blur(18px) saturate(1.1);
+}
+
+/* A 4:5 window: the small photo shows at once, the large one lands on top. */
+.frame {
+  position: absolute;
+  overflow: hidden;
+  background: var(--velvet-2) center / cover no-repeat;
+  box-shadow: 0 40px 120px rgb(0 0 0 / 0.55);
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+.frame:active {
+  cursor: grabbing;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+}
+
+.bar {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px var(--gutter);
+}
+
+.count {
+  font-size: 0.8125rem;
+  font-weight: 620;
+  letter-spacing: 0.16em;
+  font-variant-numeric: tabular-nums;
+  color: var(--sugar);
+}
+
+.of {
+  color: var(--sugar-3);
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+  font-weight: 380;
+  letter-spacing: -0.01em;
+  text-align: center;
+  pointer-events: none;
+}
+
+.nav {
+  position: absolute;
+  inset: 50% 40px auto;
+  display: flex;
+  justify-content: space-between;
+  translate: 0 -50%;
+  pointer-events: none;
+}
+
+.nav .control {
+  pointer-events: auto;
+}
+
+.control {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgb(11 9 9 / 0.35);
+  color: var(--sugar);
+  transition:
+    background-color 0.4s var(--ease),
+    border-color 0.4s var(--ease),
+    color 0.4s var(--ease);
+}
+
+.control svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (hover: hover) {
+  .control:hover {
+    background: var(--sugar);
+    border-color: var(--sugar);
+    color: var(--velvet);
+  }
+}
+
+@media (max-width: 767px) {
+  .nav {
+    inset: auto var(--gutter) calc(24px + env(safe-area-inset-bottom));
+    translate: none;
+  }
+}

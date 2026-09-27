@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { AnimatePresence, useMotionValueEvent, useScroll } from 'motion/react'
+import { AnimatePresence, useMotionValueEvent, useReducedMotion, useScroll } from 'motion/react'
 import * as m from 'motion/react-m'
 import { useI18n } from '../i18n/context.ts'
 import { cx } from '../lib/cx.ts'
@@ -10,6 +10,7 @@ import { Button } from './Button.tsx'
 import { LangToggle } from './LangToggle.tsx'
 import { Logo } from './Logo.tsx'
 import { MobileMenu } from './MobileMenu.tsx'
+import { Roll } from './Roll.tsx'
 import s from './Header.module.css'
 
 type Props = { menuOpen: boolean; onMenuChange: (open: boolean) => void }
@@ -17,7 +18,8 @@ type Props = { menuOpen: boolean; onMenuChange: (open: boolean) => void }
 export function Header({ menuOpen, onMenuChange }: Props) {
   const { t } = useI18n()
   const active = useActiveSection()
-  const { scrollY } = useScroll()
+  const reduce = useReducedMotion()
+  const { scrollY, scrollYProgress } = useScroll()
   const [hidden, setHidden] = useState(false)
   const [solid, setSolid] = useState(false)
   const closeMenu = useCallback(() => onMenuChange(false), [onMenuChange])
@@ -52,7 +54,7 @@ export function Header({ menuOpen, onMenuChange }: Props) {
                     className={cx(s.link, active === id && s.current)}
                     aria-current={active === id ? 'location' : undefined}
                   >
-                    {t.nav[id]}
+                    <Roll text={t.nav[id]} />
                     {active === id && <m.span layoutId="nav-mark" className={s.mark} transition={ui} />}
                   </a>
                 </li>
@@ -77,6 +79,8 @@ export function Header({ menuOpen, onMenuChange }: Props) {
             </button>
           </div>
         </div>
+        {/* Reading progress: a pink hairline along the bottom edge. */}
+        {!reduce && <m.span className={s.progress} style={{ scaleX: scrollYProgress }} aria-hidden="true" />}
       </m.header>
       <AnimatePresence>{menuOpen && <MobileMenu onClose={closeMenu} />}</AnimatePresence>
     </>

@@ -15,6 +15,22 @@
   -webkit-backdrop-filter: blur(16px) saturate(1.2);
 }
 
+.progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--pink);
+  transform-origin: left;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+}
+
+.solid .progress {
+  opacity: 1;
+}
+
 .inner {
   display: flex;
   align-items: center;

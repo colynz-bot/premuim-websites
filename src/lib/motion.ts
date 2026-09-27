@@ -9,6 +9,9 @@ export const reveal: Transition = { duration: 0.9, ease: EASE }
 /** Interface feedback and layout changes: critically damped, no bounce. */
 export const ui: Transition = { type: 'spring', visualDuration: 0.45, bounce: 0 }
 
+/** Anything that trails the pointer: quick to follow, settles without overshoot. */
+export const follow = { stiffness: 320, damping: 32, mass: 0.7 }
+
 /** Pass a delay in seconds through the `custom` prop. */
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },

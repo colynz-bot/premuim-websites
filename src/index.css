@@ -39,10 +39,33 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html {
+  /* Keeps the layout still when overlays lock the scroll. */
+  scrollbar-gutter: stable;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Smooth scrolling (Lenis) on mouse and trackpad. */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 *,
@@ -131,6 +154,12 @@ button {
   outline: 2px solid var(--blush);
   outline-offset: 4px;
   border-radius: 6px;
+}
+
+/* Content floats above the ambient crystal field. */
+#page {
+  position: relative;
+  z-index: 1;
 }
 
 .container {

@@ -1,5 +1,8 @@
 .button {
   --h: 54px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   gap: 16px;
@@ -17,6 +20,24 @@
 
 .button:hover {
   background: var(--pink-hover);
+}
+
+/* Gel gloss: a band of light slides across the pill once per hover. */
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 32%, rgb(255 255 255 / 0.42) 50%, transparent 68%);
+  translate: -110% 0;
+  pointer-events: none;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .button:hover::before {
+    translate: 110% 0;
+    transition: translate 0.9s var(--ease);
+  }
 }
 
 .label {

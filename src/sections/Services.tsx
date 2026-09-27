@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import { stagger, useMotionValue, useReducedMotion, useSpring, type Variants } from 'motion/react'
+import { stagger, useMotionValue, useReducedMotion, useSpring, useTransform, useVelocity, type Variants } from 'motion/react'
 import * as m from 'motion/react-m'
+import { Marquee } from '../components/Marquee.tsx'
 import { RevealLines } from '../components/RevealLines.tsx'
 import { useI18n } from '../i18n/context.ts'
 import { cx } from '../lib/cx.ts'
 import { useFinePointer } from '../lib/hooks.ts'
-import { fadeUp, inView, ui } from '../lib/motion.ts'
+import { fadeUp, follow, inView, ui } from '../lib/motion.ts'
 import { services, type ServiceId } from '../salon.ts'
 import s from './Services.module.css'
 
 const list: Variants = { hidden: {}, visible: { transition: { delayChildren: stagger(0.07) } } }
-const follow = { stiffness: 320, damping: 32, mass: 0.7 }
 
 export function Services() {
   const { t } = useI18n()
@@ -23,9 +23,12 @@ export function Services() {
   const pointerY = useMotionValue(0)
   const x = useSpring(pointerX, follow)
   const y = useSpring(pointerY, follow)
+  // The photo swings behind fast sideways moves, like a card held by its corner.
+  const tilt = useSpring(useTransform(useVelocity(x), [-1600, 0, 1600], [9, 0, -9]), follow)
 
   return (
     <section id="services" className={s.section} aria-labelledby="services-title">
+      <Marquee items={services.map((service) => t.services.items[service.id].name)} />
       <div className={cx('container', s.grid)}>
         <header className={s.head}>
           <p className="label">{t.services.label}</p>
@@ -72,7 +75,7 @@ export function Services() {
       {fine && !reduce && armed && (
         <m.div
           className={s.preview}
-          style={{ x, y }}
+          style={{ x, y, rotate: tilt }}
           initial={{ opacity: 0, scale: 0.85 }}
           animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.85 }}
           transition={ui}

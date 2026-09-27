@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import * as m from 'motion/react-m'
 import { RevealLines } from '../components/RevealLines.tsx'
@@ -34,6 +34,9 @@ export function Booking() {
   const { scrollYProgress: progress } = useScroll({ target: steps, offset: ['start 0.8', 'end 0.5'] })
   const { scrollYProgress } = useScroll({ target: section, offset: ['start end', 'end start'] })
   const ghostY = useTransform(scrollYProgress, [0, 1], ['-14%', '14%'])
+  // The room warms up as the calendar arrives.
+  const warmth = useTransform(scrollYProgress, [0.15, 0.45], [0, 1])
+  const [loaded, setLoaded] = useState(false)
 
   return (
     <section ref={section} id="booking" className={s.section} aria-labelledby="booking-title">
@@ -77,16 +80,26 @@ export function Booking() {
         </div>
 
         {/* The salon's own Studio24 widget, loaded only when it nears the viewport. */}
-        <m.div
-          className={s.widget}
-          data-loading="Studio24"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={fadeUp}
-        >
-          <iframe src={salon.bookingWidget} title={t.booking.frame} loading="lazy" />
-        </m.div>
+        <div className={s.widgetWrap}>
+          <m.div className={s.warmth} style={reduce ? undefined : { opacity: warmth }} aria-hidden="true" />
+          <m.div
+            className={cx(s.widget, loaded && s.loaded)}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={fadeUp}
+          >
+            <div className={s.loader} aria-hidden="true">
+              <span className={s.crystals}>
+                <i />
+                <i />
+                <i />
+              </span>
+              {t.booking.loading}
+            </div>
+            <iframe src={salon.bookingWidget} title={t.booking.frame} loading="lazy" onLoad={() => setLoaded(true)} />
+          </m.div>
+        </div>
       </div>
     </section>
   )

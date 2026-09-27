@@ -44,8 +44,82 @@
 
 .details {
   display: grid;
-  gap: 32px;
+  gap: 28px;
   width: 100%;
+}
+
+.list {
+  display: grid;
+  gap: 32px;
+}
+
+/* Live status: a breathing pink dot while the studio is open. */
+.status {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 16px 9px 14px;
+  border: 1px solid var(--line);
+  /* A pill on one line, a soft card when narrow phones wrap it. */
+  border-radius: 20px;
+  line-height: 1.35;
+  font-size: var(--t-small);
+  color: var(--sugar-2);
+}
+
+.open {
+  color: var(--sugar);
+}
+
+.pulse {
+  position: relative;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sugar-3);
+}
+
+.open .pulse {
+  background: var(--pink);
+}
+
+.open .pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--pink);
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .open .pulse::after {
+    animation: breathe 2.4s var(--ease) infinite;
+  }
+}
+
+@keyframes breathe {
+  from {
+    opacity: 0.7;
+    scale: 1;
+  }
+
+  to {
+    opacity: 0;
+    scale: 3.2;
+  }
+}
+
+.copy {
+  cursor: pointer;
+}
+
+.swap {
+  position: relative;
+  display: inline-grid;
+  overflow: hidden;
 }
 
 .block {
