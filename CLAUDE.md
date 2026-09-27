@@ -22,6 +22,7 @@ Premium bilingual website (Bulgarian by default, English) for Sugar Nails, a nai
 - Subtle, intentional, in service of hierarchy and storytelling. Plain CSS for simple hover, colour and opacity changes.
 - Reduced motion: `MotionConfig reducedMotion="user"` plus `useReducedMotion()` to drop scroll-linked transforms, the pinned gallery and the canvas loop.
 - Mobile is its own design: cursor effects only for `(hover: hover) and (pointer: fine)`, native swipe gallery below 1024px, sticky booking bar.
+- The `motion` skill in `.claude/skills/motion` (from secondsky/claude-skills) is general Motion reference. Where it differs, the rules above win: for example, use `m.*`, not `motion.*`.
 
 ## Working rules
 
