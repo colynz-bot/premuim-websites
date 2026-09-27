@@ -1,0 +1,189 @@
+.pinned {
+  position: relative;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 3vw, 56px);
+  width: max-content;
+  padding-inline: var(--gutter) calc(var(--gutter) * 2);
+}
+
+.intro {
+  flex: none;
+  width: min(34vw, 540px);
+  padding-right: 3vw;
+}
+
+.title {
+  margin-top: 24px;
+}
+
+.pinned .title {
+  font-size: clamp(3rem, 6vw, 6.5rem);
+}
+
+.lead {
+  max-width: 32ch;
+  margin-top: 32px;
+  color: var(--sugar-2);
+}
+
+.card {
+  flex: none;
+  width: clamp(260px, 23vw, 360px);
+}
+
+.frame {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: min(56svh, 540px);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(46% 42% at 50% 55%, rgb(var(--glow) / 0.22), transparent 72%);
+  opacity: 0.65;
+  transition: opacity 0.7s var(--ease);
+}
+
+.card:hover .frame::before {
+  opacity: 1;
+}
+
+.drift {
+  position: relative;
+  width: 46%;
+}
+
+.art {
+  width: 100%;
+  rotate: -8deg;
+  transition:
+    scale 0.9s var(--ease),
+    rotate 0.9s var(--ease);
+}
+
+.card:hover .art {
+  scale: 1.05;
+  rotate: -4deg;
+}
+
+.caption {
+  display: grid;
+  gap: 6px;
+  margin-top: 20px;
+}
+
+.name {
+  font-size: 1.375rem;
+  font-weight: 420;
+  letter-spacing: -0.02em;
+}
+
+.desc {
+  max-width: 30ch;
+  font-size: var(--t-small);
+  color: var(--sugar-2);
+}
+
+.end {
+  flex: none;
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+  width: clamp(280px, 26vw, 420px);
+}
+
+.handle {
+  font-size: clamp(1.75rem, 2.6vw, 2.75rem);
+  font-weight: 360;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.progress {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: clamp(24px, 5svh, 48px);
+  height: 1px;
+  background: var(--line);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--sugar);
+  transform-origin: left;
+}
+
+/* Swipe layout */
+.swipe {
+  position: relative;
+  padding-block: clamp(96px, 12vw, 160px);
+}
+
+.swipe .intro {
+  width: auto;
+  padding-right: 0;
+}
+
+.scroller {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  margin-top: 48px;
+  padding: 0 var(--gutter) 8px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+
+.scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.scroller .card {
+  width: min(74vw, 340px);
+  scroll-snap-align: start;
+}
+
+.scroller .frame {
+  height: min(60svh, 460px);
+}
+
+.scroller .end {
+  width: min(74vw, 340px);
+  align-content: center;
+  padding-inline: 8px;
+  scroll-snap-align: start;
+}
+
+.hint {
+  margin-top: 20px;
+  font-size: var(--t-label);
+  font-weight: 620;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sugar-3);
+}

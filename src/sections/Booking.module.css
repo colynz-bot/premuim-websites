@@ -1,0 +1,141 @@
+.section {
+  position: relative;
+  padding-block: clamp(120px, 14vw, 220px);
+  overflow: hidden;
+}
+
+/* Outlined backdrop numerals, drifting against the scroll. */
+.ghost {
+  position: absolute;
+  top: 12%;
+  right: -3vw;
+  font-size: clamp(9rem, 34vw, 34rem);
+  font-weight: 250;
+  line-height: 0.8;
+  letter-spacing: -0.07em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(245 238 232 / 0.09);
+  pointer-events: none;
+  user-select: none;
+}
+
+.inner {
+  position: relative;
+}
+
+.title {
+  margin-top: 24px;
+}
+
+.body {
+  max-width: 36ch;
+  margin-top: 32px;
+  color: var(--sugar-2);
+}
+
+.steps {
+  position: relative;
+  margin-top: clamp(64px, 8vw, 112px);
+  padding-top: 48px;
+}
+
+.rail {
+  position: absolute;
+  top: 7px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.fill {
+  position: absolute;
+  inset: 0;
+  background: var(--cherry-glow);
+  transform-origin: left center;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px clamp(32px, 4vw, 72px);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  gap: 10px;
+  align-content: start;
+}
+
+.dot {
+  position: absolute;
+  top: -48px;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+  border: 1px solid var(--sugar-3);
+  border-radius: 50%;
+  background: var(--velvet);
+}
+
+.dotFill {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cherry-glow);
+}
+
+.stepNum {
+  color: var(--sugar-3);
+}
+
+.stepTitle {
+  font-size: var(--t-h3);
+  font-weight: 420;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.stepText {
+  max-width: 30ch;
+  color: var(--sugar-2);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px 36px;
+  margin-top: clamp(64px, 7vw, 104px);
+}
+
+@media (max-width: 899px) {
+  .steps {
+    padding: 0 0 0 44px;
+  }
+
+  .rail {
+    top: 0;
+    bottom: 0;
+    left: 7px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .fill {
+    transform-origin: center top;
+  }
+
+  .list {
+    grid-template-columns: 1fr;
+  }
+
+  .dot {
+    top: 2px;
+    left: -44px;
+  }
+}

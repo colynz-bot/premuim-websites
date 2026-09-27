@@ -1,0 +1,48 @@
+.toggle {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 620;
+  letter-spacing: 0.1em;
+  color: var(--sugar-2);
+  transition: color 0.3s;
+}
+
+.option:hover {
+  color: var(--sugar);
+}
+
+.active,
+.active:hover {
+  color: var(--velvet);
+}
+
+.pill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--sugar);
+}
+
+.text {
+  position: relative;
+}
+
+@media (pointer: coarse) {
+  .option {
+    min-width: 44px;
+    height: 36px;
+  }
+}

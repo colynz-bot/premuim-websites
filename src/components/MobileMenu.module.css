@@ -1,0 +1,46 @@
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  padding: calc(68px + 7svh) var(--gutter) calc(28px + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  background: var(--velvet);
+}
+
+.mask {
+  overflow-y: clip;
+  padding-block: 0.08em;
+}
+
+.link {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  font-size: clamp(2.75rem, 11vw, 4.5rem);
+  font-weight: 360;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+}
+
+.index {
+  font-size: 0.75rem;
+  font-weight: 620;
+  letter-spacing: 0.12em;
+  color: var(--caramel);
+  translate: 0 -1.6em;
+}
+
+.foot {
+  display: grid;
+  gap: 20px;
+  justify-items: start;
+}
+
+.address {
+  color: var(--sugar-2);
+  font-size: var(--t-small);
+}

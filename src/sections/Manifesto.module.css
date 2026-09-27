@@ -1,0 +1,58 @@
+.section {
+  position: relative;
+  padding-block: clamp(120px, 15vw, 240px) clamp(96px, 11vw, 180px);
+}
+
+.text {
+  max-width: 17em;
+  margin-top: 32px;
+  font-size: var(--t-lead);
+  font-weight: 340;
+  line-height: 1.12;
+  letter-spacing: -0.028em;
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px clamp(32px, 4vw, 72px);
+  margin-top: clamp(80px, 10vw, 160px);
+}
+
+.principle {
+  position: relative;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+  padding-top: 28px;
+}
+
+.rule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--line);
+  transform-origin: left;
+}
+
+.index {
+  color: var(--sugar-3);
+}
+
+.title {
+  font-size: var(--t-h3);
+  font-weight: 420;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.copy {
+  max-width: 32ch;
+  color: var(--sugar-2);
+}
+
+@media (max-width: 899px) {
+  .principles {
+    grid-template-columns: 1fr;
+  }
+}

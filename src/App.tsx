@@ -1,85 +1,42 @@
-import { motion, MotionConfig, stagger, type Variants } from 'motion/react'
-import './App.css'
+import { useState } from 'react'
+import { LazyMotion, MotionConfig } from 'motion/react'
+import { Header } from './components/Header.tsx'
+import { StickyBook } from './components/StickyBook.tsx'
+import type { Lang } from './i18n/dict.ts'
+import { LanguageProvider } from './i18n/LanguageProvider.tsx'
+import { Booking } from './sections/Booking.tsx'
+import { Finishes } from './sections/Finishes.tsx'
+import { Footer } from './sections/Footer.tsx'
+import { Hero } from './sections/Hero.tsx'
+import { Manifesto } from './sections/Manifesto.tsx'
+import { Services } from './sections/Services.tsx'
+import { Visit } from './sections/Visit.tsx'
 
-const container: Variants = {
-  hidden: {},
-  visible: { transition: { delayChildren: stagger(0.12) } },
-}
+// Animation features arrive in their own chunk, after first paint.
+const loadFeatures = () => import('./lib/features.ts').then((mod) => mod.default)
 
-const item: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { type: 'spring', stiffness: 260, damping: 24 },
-  },
-}
+export default function App({ initialLang }: { initialLang: Lang }) {
+  const [menuOpen, setMenuOpen] = useState(false)
 
-const features = [
-  {
-    title: 'Entrées',
-    text: 'Les éléments apparaissent en cascade grâce aux variants et à stagger().',
-  },
-  {
-    title: 'Gestes',
-    text: 'whileHover et whileTap rendent boutons et cartes réactifs au survol et au clic.',
-  },
-  {
-    title: 'Défilement',
-    text: 'whileInView lance l’animation quand la section entre dans l’écran.',
-  },
-]
-
-function App() {
   return (
-    <MotionConfig reducedMotion="user">
-      <motion.section
-        id="hero"
-        variants={container}
-        initial="hidden"
-        animate="visible"
-      >
-        <motion.p className="eyebrow" variants={item}>
-          Vite + React + Motion
-        </motion.p>
-        <motion.h1 variants={item}>Des sites qui prennent vie</motion.h1>
-        <motion.p variants={item}>
-          Modifiez <code>src/App.tsx</code> pour commencer.
-        </motion.p>
-        <motion.a
-          className="cta"
-          href="https://motion.dev/docs/react"
-          target="_blank"
-          rel="noreferrer"
-          variants={item}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Documentation Motion
-        </motion.a>
-      </motion.section>
-
-      <motion.section
-        id="features"
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {features.map((feature) => (
-          <motion.article
-            key={feature.title}
-            className="card"
-            variants={item}
-            whileHover={{ y: -6 }}
-          >
-            <h2>{feature.title}</h2>
-            <p>{feature.text}</p>
-          </motion.article>
-        ))}
-      </motion.section>
-    </MotionConfig>
+    <LanguageProvider initial={initialLang}>
+      <LazyMotion features={loadFeatures} strict>
+        <MotionConfig reducedMotion="user">
+          <Header menuOpen={menuOpen} onMenuChange={setMenuOpen} />
+          <div id="page">
+            <main id="content">
+              <Hero />
+              <Manifesto />
+              <Services />
+              <Finishes />
+              <Booking />
+              <Visit />
+            </main>
+            <Footer />
+          </div>
+          <StickyBook hidden={menuOpen} />
+        </MotionConfig>
+      </LazyMotion>
+    </LanguageProvider>
   )
 }
-
-export default App
