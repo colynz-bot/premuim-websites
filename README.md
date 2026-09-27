@@ -2,7 +2,7 @@
 
 Site premium bilingue (bulgare par défaut, anglais sur `/en/`) du studio de manucure Sugar Nails, à Ovcha Kupel (Sofia). Les réservations passent par Studio24.
 
-Stack : [Vite](https://vite.dev), [React](https://react.dev), TypeScript et [Motion](https://motion.dev) pour les animations.
+Stack : [Vite](https://vite.dev), [React](https://react.dev), TypeScript, [Motion](https://motion.dev) pour les animations et [Lenis](https://lenis.darkroom.engineering) pour le défilement fluide.
 
 ## Démarrer
 
@@ -25,7 +25,7 @@ Le site est ensuite disponible sur http://localhost:5173 (et http://localhost:51
 ## Modifier le contenu
 
 - **Textes** (bulgare et anglais) : `src/i18n/dict.ts`.
-- **Infos du salon** (téléphone, horaires, prix, liens, widget Studio24, note) : `src/salon.ts`.
+- **Infos du salon** (téléphone, horaires, prix, liens, widget Studio24, note) : `src/salon.ts`. Si les horaires changent, modifiez aussi `open`, qui alimente le statut « ouvert maintenant ».
 - **Photos et logo** : `src/assets/img/` (WebP). Pour changer une photo de la galerie, remplacez le fichier en gardant le même nom.
 - **Référencement** (titre, description, image de partage) : `index.html` et `en/index.html`.
 

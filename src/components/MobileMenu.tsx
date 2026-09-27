@@ -2,19 +2,28 @@ import { useEffect, useRef, type MouseEvent } from 'react'
 import * as m from 'motion/react-m'
 import { useI18n } from '../i18n/context.ts'
 import { EASE, reveal } from '../lib/motion.ts'
+import { lockScroll, scrollToTarget, unlockScroll } from '../lib/scroll.ts'
 import { NAV_LINKS, salon } from '../salon.ts'
 import { Button } from './Button.tsx'
 import s from './MobileMenu.module.css'
+
+/** Unlocks the page once, whether a link or the closing curtain gets there first. */
+function release(held: { current: boolean }) {
+  if (!held.current) return
+  held.current = false
+  unlockScroll()
+}
 
 /** Full-screen menu that drops like a curtain; links rise in one after another. */
 export function MobileMenu({ onClose }: { onClose: () => void }) {
   const { t } = useI18n()
   const first = useRef<HTMLAnchorElement>(null)
+  const held = useRef(false)
 
   useEffect(() => {
-    const root = document.documentElement
     const page = document.getElementById('page')
-    root.style.overflow = 'hidden'
+    lockScroll()
+    held.current = true
     page?.setAttribute('inert', '')
     first.current?.focus({ preventScroll: true })
     const onKeyDown = (event: KeyboardEvent) => {
@@ -22,7 +31,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
     }
     window.addEventListener('keydown', onKeyDown)
     return () => {
-      root.style.overflow = ''
+      release(held)
       page?.removeAttribute('inert')
       window.removeEventListener('keydown', onKeyDown)
     }
@@ -31,8 +40,10 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
   function go(event: MouseEvent<HTMLAnchorElement>, id: string) {
     event.preventDefault()
     onClose()
-    const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    document.getElementById(id)?.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' })
+    // Let the page glide while the curtain rises.
+    release(held)
+    const section = document.getElementById(id)
+    if (section) scrollToTarget(section)
     window.history.replaceState(null, '', `#${id}`)
   }
 

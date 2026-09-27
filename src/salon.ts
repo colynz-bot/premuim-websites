@@ -51,6 +51,8 @@ export const salon = {
     bg: [['Всеки ден', '10:00 – 21:00']],
     en: [['Every day', '10:00 – 21:00']],
   } satisfies Record<Lang, [days: string, time: string][]>,
+  /** The same hours for the live "open now" status: every day, Sofia time. */
+  open: { from: '10:00', to: '21:00', timeZone: 'Europe/Sofia' },
   brands: ['DNKA', 'SNB Professional', 'Mister Nails'],
 }
 

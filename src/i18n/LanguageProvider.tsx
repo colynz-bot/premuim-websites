@@ -29,7 +29,13 @@ export function LanguageProvider({ initial, children }: { initial: Lang; childre
       if (next === lang) return
       const swap = () => {
         flushSync(() => setLangState(next))
-        window.history.pushState(null, '', pathFor(next) + window.location.hash)
+        // A page opened from disk (file://) may not change its path: keep the URL and
+        // switch anyway, or the fade below would never come back from velvet.
+        try {
+          window.history.pushState(null, '', pathFor(next) + window.location.hash)
+        } catch {
+          // The URL stays as it is.
+        }
       }
       const root = document.getElementById('root')
       if (!root || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return swap()

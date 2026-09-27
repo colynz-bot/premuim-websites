@@ -7,6 +7,12 @@
   overflow: hidden;
 }
 
+.depth {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 .field {
   position: absolute;
   inset: 0;
@@ -64,8 +70,72 @@
 }
 
 .stars {
-  letter-spacing: 0.12em;
+  display: inline-flex;
+  gap: 0.18em;
   color: var(--pink);
+}
+
+.star {
+  display: inline-block;
+}
+
+/* Scroll cue: a drop of sugar running down a thread. */
+.cue {
+  position: absolute;
+  left: 50%;
+  bottom: 28px;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  translate: -50% 0;
+  font-size: 0.6875rem;
+  font-weight: 620;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sugar-3);
+  pointer-events: none;
+}
+
+.line {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 56px;
+  overflow: hidden;
+  background: var(--line);
+  transform-origin: top;
+}
+
+.line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent, var(--blush));
+  translate: 0 -100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .line::after {
+    animation: drip 2.6s var(--ease) 2.4s infinite;
+  }
+}
+
+@keyframes drip {
+  0% {
+    translate: 0 -100%;
+  }
+
+  70%,
+  100% {
+    translate: 0 100%;
+  }
+}
+
+@media (max-width: 899px), (max-height: 700px) {
+  .cue {
+    display: none;
+  }
 }
 
 @media (max-width: 899px) {
