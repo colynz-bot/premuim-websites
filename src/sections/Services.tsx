@@ -1,29 +1,28 @@
 import { useState } from 'react'
-import { AnimatePresence, stagger, useMotionValue, useReducedMotion, useSpring, type Variants } from 'motion/react'
+import { stagger, useMotionValue, useReducedMotion, useSpring, type Variants } from 'motion/react'
 import * as m from 'motion/react-m'
-import { NailArt } from '../components/NailArt.tsx'
 import { RevealLines } from '../components/RevealLines.tsx'
 import { useI18n } from '../i18n/context.ts'
 import { cx } from '../lib/cx.ts'
 import { useFinePointer } from '../lib/hooks.ts'
 import { fadeUp, inView, ui } from '../lib/motion.ts'
-import { salon, services, type ServiceId } from '../salon.ts'
+import { services, type ServiceId } from '../salon.ts'
 import s from './Services.module.css'
 
 const list: Variants = { hidden: {}, visible: { transition: { delayChildren: stagger(0.07) } } }
 const follow = { stiffness: 320, damping: 32, mass: 0.7 }
 
 export function Services() {
-  const { t, lang } = useI18n()
+  const { t } = useI18n()
   const fine = useFinePointer()
   const reduce = useReducedMotion()
   const [hovered, setHovered] = useState<ServiceId | null>(null)
+  // Preview photos load on the first hover over the list, not with the page.
+  const [armed, setArmed] = useState(false)
   const pointerX = useMotionValue(0)
   const pointerY = useMotionValue(0)
   const x = useSpring(pointerX, follow)
   const y = useSpring(pointerY, follow)
-  const current = services.find((service) => service.id === hovered)
-  const book = salon.studio24[lang]
 
   return (
     <section id="services" className={s.section} aria-labelledby="services-title">
@@ -34,9 +33,6 @@ export function Services() {
           <m.p className={s.intro} initial="hidden" whileInView="visible" viewport={inView} variants={fadeUp} custom={0.2}>
             {t.services.intro}
           </m.p>
-          <a className={cx('ghost', s.link)} href={book} target="_blank" rel="noopener">
-            {t.services.link} ↗<span className="sr-only"> {t.common.newTab}</span>
-          </a>
         </header>
 
         <m.ol
@@ -45,6 +41,7 @@ export function Services() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
           variants={list}
+          onPointerEnter={() => setArmed(true)}
           onPointerMove={(event) => {
             pointerX.set(event.clientX)
             pointerY.set(event.clientY)
@@ -55,21 +52,15 @@ export function Services() {
             const item = t.services.items[service.id]
             return (
               <m.li key={service.id} variants={fadeUp}>
-                <a
-                  className={s.row}
-                  href={book}
-                  target="_blank"
-                  rel="noopener"
-                  onPointerEnter={() => setHovered(service.id)}
-                >
+                <a className={s.row} href="#booking" onPointerEnter={() => setHovered(service.id)}>
                   <span className={s.num}>{String(i + 1).padStart(2, '0')}</span>
-                  <NailArt finish={service.finish} shape={service.shape} className={s.thumb} />
+                  <img className={s.thumb} src={service.image} alt="" width="480" height="600" loading="lazy" decoding="async" />
                   <span className={s.name}>{item.name}</span>
+                  {service.price !== null && <span className={s.price}>{t.services.from(service.price)}</span>}
                   <span className={s.desc}>{item.text}</span>
                   <span className={s.cta} aria-hidden="true">
                     {t.services.book} →
                   </span>
-                  <span className="sr-only"> — {t.nav.book} {t.common.newTab}</span>
                 </a>
               </m.li>
             )
@@ -77,29 +68,33 @@ export function Services() {
         </m.ol>
       </div>
 
-      {/* Desktop: the hovered treatment's finish trails the cursor. */}
-      {fine && !reduce && (
+      {/* Desktop: a photo of the hovered treatment trails the cursor. */}
+      {fine && !reduce && armed && (
         <m.div
           className={s.preview}
           style={{ x, y }}
-          animate={{ opacity: current ? 1 : 0, scale: current ? 1 : 0.8 }}
+          initial={{ opacity: 0, scale: 0.85 }}
+          animate={{ opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.85 }}
           transition={ui}
           aria-hidden="true"
         >
-          <AnimatePresence initial={false}>
-            {current && (
-              <m.div
-                key={current.id}
-                className={s.art}
-                initial={{ opacity: 0, rotate: -22, scale: 0.9 }}
-                animate={{ opacity: 1, rotate: -12, scale: 1 }}
-                exit={{ opacity: 0, rotate: -4, scale: 0.9 }}
+          {services.map((service) => {
+            const active = service.id === hovered
+            return (
+              <m.img
+                key={service.id}
+                className={s.photo}
+                src={service.image}
+                alt=""
+                width="480"
+                height="600"
+                decoding="async"
+                initial={false}
+                animate={{ opacity: active ? 1 : 0, rotate: active ? -4 : -10, scale: active ? 1 : 0.94 }}
                 transition={ui}
-              >
-                <NailArt finish={current.finish} shape={current.shape} />
-              </m.div>
-            )}
-          </AnimatePresence>
+              />
+            )
+          })}
         </m.div>
       )}
     </section>

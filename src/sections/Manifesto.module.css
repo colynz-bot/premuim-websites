@@ -12,14 +12,22 @@
   letter-spacing: -0.028em;
 }
 
-.principles {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 48px clamp(32px, 4vw, 72px);
+.heading {
   margin-top: clamp(80px, 10vw, 160px);
+  font-size: var(--t-h3);
+  font-weight: 380;
+  letter-spacing: -0.02em;
+  color: var(--sugar-2);
 }
 
-.principle {
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 56px clamp(32px, 4vw, 72px);
+  margin-top: 40px;
+}
+
+.reason {
   position: relative;
   display: grid;
   gap: 12px;
@@ -52,7 +60,16 @@
 }
 
 @media (max-width: 899px) {
-  .principles {
-    grid-template-columns: 1fr;
+  .reasons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 40px 20px;
+  }
+
+  .title {
+    font-size: 1.1875rem;
+  }
+
+  .copy {
+    font-size: var(--t-small);
   }
 }

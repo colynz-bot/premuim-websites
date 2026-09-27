@@ -1,4 +1,4 @@
-import { useRef, type PointerEvent, type ReactNode } from 'react'
+import { useRef, type MouseEvent, type PointerEvent, type ReactNode } from 'react'
 import { useMotionValue, useReducedMotion, useSpring, type Variants } from 'motion/react'
 import * as m from 'motion/react-m'
 import { useI18n } from '../i18n/context.ts'
@@ -14,6 +14,7 @@ type Props = {
   size?: 'sm' | 'md' | 'lg'
   block?: boolean
   className?: string
+  onClick?: (event: MouseEvent<HTMLAnchorElement>) => void
 }
 
 const pull = { stiffness: 220, damping: 20, mass: 0.6 }
@@ -28,8 +29,8 @@ const arrow: Variants = {
   },
 }
 
-/** The primary action: a cherry pill with a gentle magnetic pull and a travelling arrow. */
-export function Button({ href, children, external, size = 'md', block, className }: Props) {
+/** The primary action: a pink pill with a gentle magnetic pull and a travelling arrow. */
+export function Button({ href, children, external, size = 'md', block, className, onClick }: Props) {
   const { t } = useI18n()
   const ref = useRef<HTMLAnchorElement>(null)
   const x = useMotionValue(0)
@@ -67,6 +68,7 @@ export function Button({ href, children, external, size = 'md', block, className
       whileTap={{ scale: 0.97 }}
       onPointerMove={onPointerMove}
       onPointerLeave={reset}
+      onClick={onClick}
     >
       <span className={s.label}>{children}</span>
       <span className={s.icon} aria-hidden="true">

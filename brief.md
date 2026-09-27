@@ -2,17 +2,17 @@
 
 ## Client
 
-- **Sugar Nails**, nail studio at ул. „Арх. Франк Лойд Райт“ 4, кв. Овча купел, София.
-- Instagram: [@sugar_nails_sofia](https://www.instagram.com/sugar_nails_sofia/). Current website: sugarnails.beauty.
-- Online booking: [Studio24](https://studio24.bg/sugar-nails-s10645) ([EN](https://studio24.bg/en/sugar-nails-s10645)).
-- Positioning, from the Studio24 listing: a cosy studio, personal attention, premium products; classic manicure, gel polish and artistic designs, "we will fulfil your every wish".
-- Services listed: classic manicure, gel polish manicure, gel overlay on natural nails, extensions, nail art, removal.
+- **Sugar Nails**, nail salon at ул. „Арх. Франк Лойд Райт“ 4, кв. Овча купел, 1618 София. Nail artist: **Розалина** (Rosalina).
+- Phone: 0899 107 322. Open every day, 10:00–21:00.
+- Instagram [@sugar_nails_sofia](https://www.instagram.com/sugar_nails_sofia/) · TikTok [@sugarnailssofia](https://www.tiktok.com/@sugarnailssofia) · current site [sugarnails.beauty](https://sugarnails.beauty).
+- Booking: [Studio24](https://studio24.bg/sugar-nails-s10645), embeddable widget `https://studio24.bg/studios/iframe?t=fiP613tf87rxesBZ`. Rating 5.0 from 44 reviews.
+- Starting prices: manicure €25, gel polish €25, nail extensions (ноктопластика) €35, spa pedicure €30. Nail art has no listed price.
+- Brands used: DNKA, SNB Professional, Mister Nails.
+- Selling points from their site: 4+ years of experience, latest techniques, latest trends, safety standards, extreme length, "всичко е розово" (everything is pink).
+- Voice: warm and informal in Bulgarian ("ти", "Пиши ми"), "the sweetest nails in Sofia".
+- Brand: hot pink `#e3568e`, dripping "SUGAR NAILS" logo, pink studio.
 
-## Still to confirm with the salon
-
-- Phone number and full opening hours (only Monday, 10:00–21:00, was found).
-- Current prices in euros (the only price found was gel polish from 25 BGN).
-- Photos of the studio and of their work, from Instagram.
+Sources: sugarnails.beauty (home, services, booking, gallery and contact pages) and the Studio24 listing, September 2026. Photos, portrait and logo come from sugarnails.beauty.
 
 ## Goal
 
@@ -20,7 +20,8 @@ A premium, original, bilingual (Bulgarian by default, English) one-page website 
 
 ## Creative direction
 
-- **"Sweet precision."** Velvet black stage, powdered-sugar text, cherry glaze reserved for actions, caramel accents.
-- **Signature:** sugar crystals that drift in and crystallise into a glossy cherry nail, then dissolve as you scroll.
+- **"Sweet precision."** Velvet black stage, powdered-sugar text, the salon's pink reserved for actions and accents.
+- **Signature:** sugar crystals that drift in and crystallise into a glossy pink nail, then dissolve as you scroll.
+- **Imagery:** the salon's own work photos, the studio and Rosalina's polaroid; their dripping logo signs off the page.
 - **Type:** Sofia Sans, designed in Bulgaria, with native Bulgarian Cyrillic letterforms. Oversized, light display type.
 - **Reference:** the "Dala" style guide (dark stage, one saturated accent, oversized light type, particle visual) is for inspiration only and is never copied.

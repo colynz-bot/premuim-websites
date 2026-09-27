@@ -8,7 +8,7 @@ import s from './MobileMenu.module.css'
 
 /** Full-screen menu that drops like a curtain; links rise in one after another. */
 export function MobileMenu({ onClose }: { onClose: () => void }) {
-  const { t, lang } = useI18n()
+  const { t } = useI18n()
   const first = useRef<HTMLAnchorElement>(null)
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ ...reveal, delay: 0.42 }}
       >
-        <Button href={salon.studio24[lang]} external block>
+        <Button href="#booking" block onClick={(event) => go(event, 'booking')}>
           {t.nav.book}
         </Button>
         <address className={s.address}>{t.visit.address}</address>

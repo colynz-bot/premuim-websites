@@ -1,15 +1,14 @@
 :root {
-  /* Velvet stage, powdered sugar, cherry glaze, caramel sparks. */
+  /* Velvet stage, powdered sugar and the salon's own pink. */
   --velvet: #0b0909;
   --velvet-2: #151112;
   --sugar: #f5eee8;
   --sugar-2: #b9aea8;
   --sugar-3: #8a817c;
   --line: rgb(245 238 232 / 0.12);
-  --cherry: #cc1f3a;
-  --cherry-deep: #b3182f;
-  --cherry-glow: #e3243f;
-  --caramel: #e9b37c;
+  --pink: #e3568e;
+  --pink-hover: #ee79aa;
+  --blush: #f3a9c8;
 
   --font: 'Sofia Sans Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -124,12 +123,12 @@ button {
 }
 
 ::selection {
-  background: var(--cherry);
-  color: var(--sugar);
+  background: var(--pink);
+  color: var(--velvet);
 }
 
 :focus-visible {
-  outline: 2px solid var(--caramel);
+  outline: 2px solid var(--blush);
   outline-offset: 4px;
   border-radius: 6px;
 }
@@ -172,7 +171,7 @@ button {
   letter-spacing: 0.16em;
   line-height: 1.3;
   text-transform: uppercase;
-  color: var(--caramel);
+  color: var(--blush);
 }
 
 .h2 {

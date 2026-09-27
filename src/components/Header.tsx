@@ -5,7 +5,7 @@ import { useI18n } from '../i18n/context.ts'
 import { cx } from '../lib/cx.ts'
 import { useActiveSection } from '../lib/hooks.ts'
 import { ui } from '../lib/motion.ts'
-import { NAV_LINKS, salon } from '../salon.ts'
+import { NAV_LINKS } from '../salon.ts'
 import { Button } from './Button.tsx'
 import { LangToggle } from './LangToggle.tsx'
 import { Logo } from './Logo.tsx'
@@ -15,7 +15,7 @@ import s from './Header.module.css'
 type Props = { menuOpen: boolean; onMenuChange: (open: boolean) => void }
 
 export function Header({ menuOpen, onMenuChange }: Props) {
-  const { t, lang } = useI18n()
+  const { t } = useI18n()
   const active = useActiveSection()
   const { scrollY } = useScroll()
   const [hidden, setHidden] = useState(false)
@@ -61,7 +61,7 @@ export function Header({ menuOpen, onMenuChange }: Props) {
           </nav>
           <div className={s.actions}>
             <LangToggle id="header" />
-            <Button href={salon.studio24[lang]} external size="sm" className={s.book}>
+            <Button href="#booking" size="sm" className={s.book}>
               {t.nav.book}
             </Button>
             <button

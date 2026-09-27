@@ -1,11 +1,9 @@
 import { useRef } from 'react'
 import { useReducedMotion, useScroll, useTransform, type MotionValue } from 'motion/react'
 import * as m from 'motion/react-m'
-import { Button } from '../components/Button.tsx'
 import { RevealLines } from '../components/RevealLines.tsx'
 import { useI18n } from '../i18n/context.ts'
 import { cx } from '../lib/cx.ts'
-import { useMedia } from '../lib/hooks.ts'
 import { fadeUp, inView } from '../lib/motion.ts'
 import { salon } from '../salon.ts'
 import s from './Booking.module.css'
@@ -32,9 +30,8 @@ export function Booking() {
   const section = useRef<HTMLElement>(null)
   const steps = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
-  const vertical = useMedia('(max-width: 899px)')
   // The rail fills step by step as the reader moves through the section.
-  const { scrollYProgress: progress } = useScroll({ target: steps, offset: ['start 0.85', 'end 0.5'] })
+  const { scrollYProgress: progress } = useScroll({ target: steps, offset: ['start 0.8', 'end 0.5'] })
   const { scrollYProgress } = useScroll({ target: section, offset: ['start end', 'end start'] })
   const ghostY = useTransform(scrollYProgress, [0, 1], ['-14%', '14%'])
 
@@ -43,39 +40,52 @@ export function Booking() {
       <m.span className={s.ghost} style={reduce ? undefined : { y: ghostY }} aria-hidden="true">
         24/7
       </m.span>
-      <div className={cx('container', s.inner)}>
-        <p className="label">{t.booking.label}</p>
-        <RevealLines id="booking-title" lines={t.booking.title} className={cx('h2', s.title)} />
-        <m.p className={s.body} initial="hidden" whileInView="visible" viewport={inView} variants={fadeUp} custom={0.2}>
-          {t.booking.body}
-        </m.p>
-        <div ref={steps} className={s.steps}>
-          <span className={s.rail} aria-hidden="true">
-            <m.span
-              className={s.fill}
-              style={reduce ? undefined : vertical ? { scaleY: progress } : { scaleX: progress }}
-            />
-          </span>
-          <ol className={s.list}>
-            {t.booking.steps.map((step, i) => (
-              <Step
-                key={i}
-                index={i}
-                total={t.booking.steps.length}
-                progress={progress}
-                still={Boolean(reduce)}
-                {...step}
-              />
-            ))}
-          </ol>
+      <div className={cx('container', s.grid)}>
+        <div>
+          <p className="label">{t.booking.label}</p>
+          <RevealLines id="booking-title" lines={t.booking.title} className={cx('h2', s.title)} />
+          <m.p className={s.body} initial="hidden" whileInView="visible" viewport={inView} variants={fadeUp} custom={0.2}>
+            {t.booking.body}
+          </m.p>
+          <div ref={steps} className={s.steps}>
+            <span className={s.rail} aria-hidden="true">
+              <m.span className={s.fill} style={reduce ? undefined : { scaleY: progress }} />
+            </span>
+            <ol className={s.list}>
+              {t.booking.steps.map((step, i) => (
+                <Step
+                  key={i}
+                  index={i}
+                  total={t.booking.steps.length}
+                  progress={progress}
+                  still={Boolean(reduce)}
+                  {...step}
+                />
+              ))}
+            </ol>
+          </div>
+          <p className={s.fallback}>
+            {t.booking.fallback}{' '}
+            <a className="ghost" href={salon.studio24[lang]} target="_blank" rel="noopener">
+              {t.booking.open} ↗<span className="sr-only"> {t.common.newTab}</span>
+            </a>{' '}
+            {t.booking.call}{' '}
+            <a className="ghost" href={salon.phone.href}>
+              {salon.phone.display}
+            </a>
+          </p>
         </div>
-        <m.div className={s.actions} initial="hidden" whileInView="visible" viewport={inView} variants={fadeUp}>
-          <Button href={salon.studio24[lang]} external size="lg">
-            {t.booking.cta}
-          </Button>
-          <a className="ghost" href="#visit">
-            {t.booking.alt}
-          </a>
+
+        {/* The salon's own Studio24 widget, loaded only when it nears the viewport. */}
+        <m.div
+          className={s.widget}
+          data-loading="Studio24"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={fadeUp}
+        >
+          <iframe src={salon.bookingWidget} title={t.booking.frame} loading="lazy" />
         </m.div>
       </div>
     </section>

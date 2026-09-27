@@ -4,13 +4,12 @@ import * as m from 'motion/react-m'
 import { useI18n } from '../i18n/context.ts'
 import { useMedia } from '../lib/hooks.ts'
 import { ui } from '../lib/motion.ts'
-import { salon } from '../salon.ts'
 import { Button } from './Button.tsx'
 import s from './StickyBook.module.css'
 
 /** Phones and tablets: booking stays one thumb-tap away once the hero is gone. */
 export function StickyBook({ hidden }: { hidden: boolean }) {
-  const { t, lang } = useI18n()
+  const { t } = useI18n()
   const compact = useMedia('(max-width: 1023px)')
   const { scrollY } = useScroll()
   const [past, setPast] = useState(false)
@@ -42,7 +41,7 @@ export function StickyBook({ hidden }: { hidden: boolean }) {
           exit={{ y: '160%' }}
           transition={ui}
         >
-          <Button href={salon.studio24[lang]} external block>
+          <Button href="#booking" block>
             {t.sticky}
           </Button>
         </m.div>

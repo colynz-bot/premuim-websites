@@ -3,7 +3,7 @@ import { useReducedMotion, type MotionValue } from 'motion/react'
 
 /**
  * The signature visual: hundreds of sugar crystals that drift in and crystallise
- * into a glossy cherry nail, part around the cursor, and dissolve as you scroll.
+ * into a glossy pink nail, part around the cursor, and dissolve as you scroll.
  * Canvas 2D with pre-rendered sprites; paused whenever it is off screen.
  */
 
@@ -34,9 +34,9 @@ type Particle = {
 }
 
 const SUGAR = '#f5eee8'
-const CARAMEL = '#e9b37c'
-const CHERRY = '#e3243f'
-const DEEP = '#9e1830'
+const BLUSH = '#f3a9c8'
+const PINK = '#e3568e'
+const DEEP = '#a3305f'
 
 const rand = (min: number, max: number) => min + Math.random() * (max - min)
 const pick = <T,>(items: T[]) => items[Math.floor(Math.random() * items.length)]
@@ -122,14 +122,14 @@ function build(w: number, h: number, dpr: number, settled: boolean) {
 
   const total = Math.round(Math.min(2200, Math.max(460, (w * h) / (mobile ? 480 : 300))))
 
-  // Cherry body, filled crystals.
+  // Pink body, filled crystals.
   for (let i = 0; i < total * 0.42; ) {
     const u = rand(-1, 1)
     const v = Math.random()
     if (Math.abs(u) > halfWidth(v) * 0.94) continue
     i++
     const [x, y] = place(u, v)
-    add(x, y, 'diamond', Math.random() < 0.32 ? DEEP : CHERRY, pick([2, 2.5, 3, 3.5]), rand(0.5, 0.95), rand(250, 950), 0.7, rand(90, 360))
+    add(x, y, 'diamond', Math.random() < 0.32 ? DEEP : PINK, pick([2, 2.5, 3, 3.5]), rand(0.5, 0.95), rand(250, 950), 0.7, rand(90, 360))
   }
 
   // Gloss: a bright reflection running down the left of the nail.
@@ -159,14 +159,14 @@ function build(w: number, h: number, dpr: number, settled: boolean) {
     const f = (target - lengths[j - 1]) / (lengths[j] - lengths[j - 1] || 1)
     const x = outline[j - 1][0] + (outline[j][0] - outline[j - 1][0]) * f + rand(-1.2, 1.2)
     const y = outline[j - 1][1] + (outline[j][1] - outline[j - 1][1]) * f + rand(-1.2, 1.2)
-    add(x, y, 'ring', Math.random() < 0.6 ? SUGAR : CARAMEL, pick([3, 4, 5]), rand(0.45, 0.95), rand(0, 500), 1.1, rand(90, 360))
+    add(x, y, 'ring', Math.random() < 0.6 ? SUGAR : BLUSH, pick([3, 4, 5]), rand(0.45, 0.95), rand(0, 500), 1.1, rand(90, 360))
   }
 
   // Ambient dust across the whole stage.
   for (let i = 0; i < total * 0.22; i++) {
     const x = rand(0, w)
     const y = rand(0, h)
-    const color = Math.random() < 0.55 ? SUGAR : Math.random() < 0.67 ? CARAMEL : CHERRY
+    const color = Math.random() < 0.55 ? SUGAR : Math.random() < 0.67 ? BLUSH : PINK
     if (Math.random() < 0.05) add(x, y, 'glint', SUGAR, pick([6, 7, 9]), rand(0.3, 0.7), rand(0, 1400), rand(4, 8), rand(40, 160), rand(0.001, 0.003))
     else add(x, y, 'ring', color, pick([2, 3, 4]), rand(0.1, 0.35), rand(0, 1400), rand(4, 8), rand(40, 160))
   }

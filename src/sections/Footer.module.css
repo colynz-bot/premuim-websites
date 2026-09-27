@@ -29,19 +29,15 @@
 
 .markWrap {
   margin-top: clamp(48px, 7vw, 112px);
+  padding-bottom: clamp(24px, 4vw, 56px);
   overflow: hidden;
 }
 
 .mark {
-  display: flex;
-  justify-content: center;
-}
-
-.logo {
-  font-size: 19vw;
-  font-weight: 400;
-  letter-spacing: -0.06em;
-  line-height: 0.82;
+  display: block;
+  width: min(100%, 1040px);
+  height: auto;
+  margin-inline: auto;
 }
 
 .bottom {

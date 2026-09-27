@@ -1,4 +1,4 @@
-import type { FinishId, ServiceId } from '../salon.ts'
+import type { ServiceId, WorkId } from '../salon.ts'
 
 export type Lang = 'bg' | 'en'
 
@@ -6,9 +6,9 @@ type Item = { name: string; text: string }
 
 const bg = {
   meta: {
-    title: 'Sugar Nails — студио за маникюр в Овча купел, София',
+    title: 'Sugar Nails — маникюр и педикюр в Овча купел, София',
     description:
-      'Маникюр, гел лак, изграждане и nail art в уютно студио в Овча купел, София. Запазете час онлайн в Studio24.',
+      'Маникюр, гел лак, ноктопластика, спа педикюр и арт дизайн в Овча купел, София. 5.0 ★ от 44 отзива. Запази час онлайн през Studio24.',
   },
   common: {
     newTab: '(отваря се в нов раздел)',
@@ -21,105 +21,98 @@ const bg = {
   },
   nav: {
     services: 'Услуги',
-    finishes: 'Финиши',
-    booking: 'Резервация',
+    gallery: 'Галерия',
+    studio: 'Студио',
     visit: 'Контакти',
     book: 'Запази час',
   },
   hero: {
-    label: 'Студио за маникюр · Овча купел, София',
+    label: 'Салон за маникюр · Овча купел, София',
     title: ['Сладка', 'прецизност.'],
-    body: 'Уютно студио, в което всеки маникюр получава пълно внимание, премиум продукти и търпението на истинския занаят.',
+    body: 'Маникюр, педикюр, ноктопластика, гел лак или артистични декорации — ще превърнем твоето желание в реалност.',
     cta: 'Запази час',
-    secondary: 'Виж услугите',
-    note: 'Онлайн резервация в Studio24 · 24/7',
+    secondary: 'Виж цените',
+    rating: (score: string, reviews: number) => `${score} · ${reviews} отзива в Studio24`,
   },
-  manifesto: {
-    label: 'Философия',
-    text: 'Класика, гел лак или смело изкуство — първо слушаме, после създаваме нокти, които ви отиват. Без бързане, прецизно и съвсем мъничко сладко.',
-    principles: [
-      {
-        title: 'Лично внимание',
-        text: 'Вашият час е само ваш — спокойно, без бързане и без компромиси.',
-      },
-      {
-        title: 'Премиум продукти',
-        text: 'Работим с продукти, на които вярваме — за блясък, който издържа.',
-      },
-      {
-        title: 'Вашата идея',
-        text: 'От класически маникюр до авторски дизайн — изпълняваме всяко желание.',
-      },
+  reasons: {
+    label: 'Защо Sugar Nails',
+    text: 'При нас получаваш най-сладките нокти в София — с внимание към всеки детайл и висококачествени продукти.',
+    title: '6 причини да дойдеш',
+    items: [
+      { title: '4+ години опит', text: 'Опит, който личи във всеки детайл.' },
+      { title: 'Най-новите техники', text: 'Винаги в крак със занаята.' },
+      { title: 'Най-новите тенденции', text: 'От френски до панделки — винаги актуално.' },
+      { title: 'Стандарти за безопасност', text: 'Хигиена и грижа при всяка процедура.' },
+      { title: 'Екстремна дължина', text: 'Толкова смело, колкото искаш.' },
+      { title: 'Всичко е розово', text: 'Буквално.' },
     ],
   },
   services: {
-    label: 'Услуги',
+    label: 'Услуги и цени',
     title: ['Сладкото', 'меню.'],
-    intro: 'Всички процедури, цени и свободни часове са винаги актуални в Studio24.',
-    link: 'Цени и свободни часове',
+    intro: 'Цените са начални. Точната цена и свободните часове виждаш при резервация в Studio24.',
+    from: (price: number) => `от ${price} €`,
     book: 'Запази',
     items: {
-      classic: {
-        name: 'Класически маникюр',
-        text: 'Оформяне, грижа за кожичките и лак по ваш избор.',
-      },
-      gel: {
-        name: 'Маникюр с гел лак',
-        text: 'Дълготраен блясък, който пази естествения нокът.',
-      },
-      overlay: {
-        name: 'Гел върху естествен нокът',
-        text: 'Укрепване, което запазва формата и дължината.',
-      },
+      manicure: { name: 'Маникюр', text: 'Оформяне, грижа за кожичките и безупречен завършек.' },
+      gel: { name: 'Гел лак', text: 'Дълготраен блясък върху естествения нокът.' },
       extensions: {
-        name: 'Изграждане',
-        text: 'Форма и дължина по ваш вкус — бадем, овал или квадрат.',
+        name: 'Ноктопластика',
+        text: 'Изграждане във формата, която искаш — бадем, квадрат, балерина или стилето.',
       },
-      art: {
-        name: 'Декорации и nail art',
-        text: 'От деликатен френски маникюр до авторски дизайн.',
-      },
-      removal: {
-        name: 'Сваляне',
-        text: 'Щадящо премахване на гел и гел лак.',
-      },
+      pedicure: { name: 'Спа педикюр', text: 'Релаксираща грижа за стъпалата с професионални продукти.' },
+      art: { name: 'Арт дизайн', text: 'Френски, панделки, камъни или изцяло твой мотив.' },
     } satisfies Record<ServiceId, Item>,
   },
-  finishes: {
-    label: 'Финиши',
-    title: ['Намерете', 'своя финиш.'],
-    intro:
-      'Шест настроения, от които да започнем. Донесете снимка или ни доверете идея — ще я превърнем в нокти.',
-    swipe: 'Плъзнете',
-    instagram: 'Още дизайни в Instagram',
+  gallery: {
+    label: 'Галерия',
+    title: ['Галерията на', 'сладките нокти.'],
+    intro: 'Малка част от нашата работа. Още дизайни ще откриеш в Instagram и TikTok.',
+    swipe: 'Плъзни',
+    follow: 'Последвай ни',
     items: {
-      cherry: 'Дълбока череша с огледален блясък.',
-      milk: 'Млечна прозрачност, мека като пудра захар.',
-      chrome: 'Топъл метален отблясък на карамел.',
-      glitter: 'Фини кристали, които улавят всяка светлина.',
-      french: 'Класическият френски — по-тих и по-изискан.',
-      cateye: 'Магнитен лъч, който се движи с всеки жест.',
-    } satisfies Record<FinishId, string>,
+      french: 'Бадем с френски',
+      stiletto: 'Розово стилето',
+      bows: 'Нюд с панделки',
+      glitter: 'Захарен блясък',
+      cateye: 'Котешко око',
+      art: 'Арт дизайн',
+      noir: 'Черен френски',
+      square: 'Квадратен френски',
+    } satisfies Record<WorkId, string>,
+  },
+  studio: {
+    label: 'Студиото',
+    title: ['Запознай се', 'с Розалина.'],
+    body: 'Над четири години опит, най-новите техники и студио в Овча купел, в което всичко е розово. Тук времето е само за теб.',
+    question: 'Имаш въпрос?',
+    message: 'Пиши ми в Instagram',
+    brands: 'Работим с',
+    portrait: 'Розалина в студиото на Sugar Nails',
+    desk: 'Работното място в студиото: UV лампа и розови детайли',
   },
   booking: {
     label: 'Резервация',
-    title: ['Вашият час', 'ви очаква.'],
-    body: 'Резервирайте онлайн в Studio24 — по всяко време и без обаждания.',
+    title: ['Твоят час', 'те очаква.'],
+    body: 'Избери услуга и свободен час направо тук. Резервацията минава през Studio24.',
     steps: [
-      { title: 'Изберете процедура', text: 'Маникюр, гел лак, изграждане или nail art.' },
-      { title: 'Изберете час', text: 'Свободните часове се виждат в реално време.' },
-      { title: 'Потвърдете', text: 'И оставете останалото на нас.' },
+      { title: 'Избери услуга', text: 'Маникюр, гел лак, ноктопластика, педикюр или арт.' },
+      { title: 'Избери час', text: 'Свободните часове се виждат в реално време.' },
+      { title: 'Потвърди', text: 'И остави останалото на нас.' },
     ],
-    cta: 'Резервирай в Studio24',
-    alt: 'Как да ни намерите',
+    frame: 'Онлайн резервация в Studio24',
+    fallback: 'Календарът не се зарежда?',
+    open: 'Отвори Studio24',
+    call: 'или се обади на',
   },
   visit: {
     label: 'Контакти',
     title: ['Франк Лойд', 'Райт 4'],
-    address: 'ул. „Арх. Франк Лойд Райт“ 4, кв. Овча купел, София',
+    address: 'ул. „Арх. Франк Лойд Райт“ 4, кв. Овча купел, 1618 София',
     maps: 'Отвори в Google Maps',
     hours: 'Работно време',
-    hoursNote: 'Свободните часове са винаги актуални в Studio24.',
+    phone: 'Телефон',
+    follow: 'Последвай ни',
   },
   footer: {
     tagline: 'Сладка прецизност в Овча купел, София.',
@@ -133,9 +126,9 @@ export type Dict = typeof bg
 
 const en: Dict = {
   meta: {
-    title: 'Sugar Nails — Nail studio in Ovcha Kupel, Sofia',
+    title: 'Sugar Nails — Manicure & pedicure in Ovcha Kupel, Sofia',
     description:
-      'Manicure, gel polish, extensions and nail art in a cosy studio in Ovcha Kupel, Sofia. Book online via Studio24.',
+      'Manicure, gel polish, nail extensions, spa pedicure and nail art in Ovcha Kupel, Sofia. Rated 5.0 ★ from 44 reviews. Book online via Studio24.',
   },
   common: {
     newTab: '(opens in a new tab)',
@@ -148,105 +141,98 @@ const en: Dict = {
   },
   nav: {
     services: 'Services',
-    finishes: 'Finishes',
-    booking: 'Booking',
+    gallery: 'Gallery',
+    studio: 'Studio',
     visit: 'Visit',
     book: 'Book now',
   },
   hero: {
-    label: 'Nail studio · Ovcha Kupel, Sofia',
+    label: 'Nail salon · Ovcha Kupel, Sofia',
     title: ['Sweet', 'precision.'],
-    body: 'A cosy studio where every manicure gets undivided attention, premium products and the patience of true craft.',
+    body: 'Manicure, pedicure, extensions, gel polish or artistic designs — we turn what you wish for into reality.',
     cta: 'Book a visit',
-    secondary: 'See services',
-    note: 'Online booking via Studio24 · 24/7',
+    secondary: 'See prices',
+    rating: (score: string, reviews: number) => `${score} · ${reviews} reviews on Studio24`,
   },
-  manifesto: {
-    label: 'Philosophy',
-    text: 'Classic, gel or bold artistry — we listen first, then create nails that feel like you. Unhurried, precise and just a little bit sweet.',
-    principles: [
-      {
-        title: 'Personal attention',
-        text: 'Your appointment is yours alone — calm, unhurried, uncompromising.',
-      },
-      {
-        title: 'Premium products',
-        text: 'We work with products we trust — for shine that lasts.',
-      },
-      {
-        title: 'Your idea',
-        text: 'From a classic manicure to bespoke art — we bring every wish to life.',
-      },
+  reasons: {
+    label: 'Why Sugar Nails',
+    text: 'Here you get the sweetest nails in Sofia — with attention to every detail and high-quality products.',
+    title: '6 reasons to come by',
+    items: [
+      { title: '4+ years of experience', text: 'Experience that shows in every detail.' },
+      { title: 'The latest techniques', text: 'Always up to date with the craft.' },
+      { title: 'The latest trends', text: 'From French tips to bows — always current.' },
+      { title: 'Safety standards', text: 'Hygiene and care at every appointment.' },
+      { title: 'Extreme length', text: 'As bold as you want to go.' },
+      { title: 'Everything is pink', text: 'Literally.' },
     ],
   },
   services: {
-    label: 'Services',
+    label: 'Services & prices',
     title: ['The sweet', 'menu.'],
-    intro: 'Every treatment, price and free slot is always up to date on Studio24.',
-    link: 'Prices & free slots',
+    intro: 'Prices are starting prices. You will see the exact price and free slots when booking on Studio24.',
+    from: (price: number) => `from €${price}`,
     book: 'Book',
     items: {
-      classic: {
-        name: 'Classic manicure',
-        text: 'Shaping, cuticle care and a polish of your choice.',
-      },
-      gel: {
-        name: 'Gel polish manicure',
-        text: 'Long-lasting shine that respects the natural nail.',
-      },
-      overlay: {
-        name: 'Gel overlay',
-        text: 'Strength that keeps your natural shape and length.',
-      },
+      manicure: { name: 'Manicure', text: 'Shaping, cuticle care and a flawless finish.' },
+      gel: { name: 'Gel polish', text: 'Long-lasting shine on your natural nails.' },
       extensions: {
         name: 'Nail extensions',
-        text: 'Your shape, your length — almond, oval or square.',
+        text: 'Built in the shape you want — almond, square, ballerina or stiletto.',
       },
-      art: {
-        name: 'Nail art',
-        text: 'From a delicate French tip to one-of-a-kind designs.',
-      },
-      removal: {
-        name: 'Removal',
-        text: 'Gentle removal of gel and gel polish.',
-      },
+      pedicure: { name: 'Spa pedicure', text: 'A relaxing treatment for your feet with professional products.' },
+      art: { name: 'Nail art', text: 'French tips, bows, stones or a motif all your own.' },
     },
   },
-  finishes: {
-    label: 'Finishes',
-    title: ['Find your', 'finish.'],
-    intro:
-      'Six moods to start from. Bring a photo or trust us with an idea — we will turn it into nails.',
+  gallery: {
+    label: 'Gallery',
+    title: ['A gallery of', 'sweet nails.'],
+    intro: 'A small taste of our work. You will find many more designs on Instagram and TikTok.',
     swipe: 'Swipe',
-    instagram: 'More designs on Instagram',
+    follow: 'Follow us',
     items: {
-      cherry: 'Deep cherry with a mirror-like gloss.',
-      milk: 'Milky translucence, soft as powdered sugar.',
-      chrome: 'The warm metallic glint of caramel.',
-      glitter: 'Fine crystals that catch every light.',
-      french: 'The classic French — quieter, more refined.',
-      cateye: 'A magnetic beam that moves with every gesture.',
+      french: 'Almond French',
+      stiletto: 'Pink stiletto',
+      bows: 'Nude with bows',
+      glitter: 'Sugar glitter',
+      cateye: 'Cat eye',
+      art: 'Graphic art',
+      noir: 'Black French',
+      square: 'Square French',
     },
+  },
+  studio: {
+    label: 'The studio',
+    title: ['Meet', 'Rosalina.'],
+    body: 'Four-plus years of experience, the latest techniques and a studio in Ovcha Kupel where everything is pink. Here, the time is all yours.',
+    question: 'Got a question?',
+    message: 'Message me on Instagram',
+    brands: 'We work with',
+    portrait: 'Rosalina in the Sugar Nails studio',
+    desk: 'The studio workstation: UV lamp and pink details',
   },
   booking: {
     label: 'Booking',
     title: ['Your chair', 'is waiting.'],
-    body: 'Book online via Studio24 — any time, no phone calls.',
+    body: 'Pick a service and a free slot right here. Booking runs through Studio24.',
     steps: [
-      { title: 'Choose a treatment', text: 'Manicure, gel polish, extensions or nail art.' },
+      { title: 'Choose a service', text: 'Manicure, gel polish, extensions, pedicure or nail art.' },
       { title: 'Pick a time', text: 'Free slots are shown in real time.' },
       { title: 'Confirm', text: 'And leave the rest to us.' },
     ],
-    cta: 'Book on Studio24',
-    alt: 'How to find us',
+    frame: 'Online booking on Studio24',
+    fallback: 'Calendar not loading?',
+    open: 'Open Studio24',
+    call: 'or call',
   },
   visit: {
     label: 'Visit',
     title: ['Frank Lloyd', 'Wright 4'],
-    address: '4 Arch. Frank Lloyd Wright St., Ovcha Kupel, Sofia',
+    address: '4 Arch. Frank Lloyd Wright St., Ovcha Kupel, 1618 Sofia',
     maps: 'Open in Google Maps',
     hours: 'Opening hours',
-    hoursNote: 'Free slots are always up to date on Studio24.',
+    phone: 'Phone',
+    follow: 'Follow us',
   },
   footer: {
     tagline: 'Sweet precision in Ovcha Kupel, Sofia.',

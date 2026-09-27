@@ -17,7 +17,7 @@
 .glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(30% 46% at 76.5% 53%, rgb(227 36 63 / 0.18), transparent 72%);
+  background: radial-gradient(30% 46% at 76.5% 53%, rgb(227 86 142 / 0.18), transparent 72%);
   pointer-events: none;
 }
 
@@ -48,11 +48,24 @@
   margin-top: 40px;
 }
 
-.note {
-  margin-top: 24px;
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
   font-size: 0.8125rem;
   letter-spacing: 0.02em;
-  color: var(--sugar-3);
+  color: var(--sugar-2);
+  transition: color 0.3s;
+}
+
+.rating:hover {
+  color: var(--sugar);
+}
+
+.stars {
+  letter-spacing: 0.12em;
+  color: var(--pink);
 }
 
 @media (max-width: 899px) {
@@ -62,7 +75,7 @@
   }
 
   .glow {
-    background: radial-gradient(60% 32% at 63% 29%, rgb(227 36 63 / 0.2), transparent 72%);
+    background: radial-gradient(60% 32% at 63% 29%, rgb(227 86 142 / 0.2), transparent 72%);
   }
 
   .title {

@@ -9,9 +9,10 @@ Premium bilingual website (Bulgarian by default, English) for Sugar Nails, a nai
 
 ## Where things live
 
-- `src/salon.ts`: salon facts (address links, Studio24, Instagram, services, finishes). `null` marks a detail not yet confirmed; filling it in makes the matching UI appear.
+- `src/salon.ts`: salon facts (phone, hours, links, Studio24 widget, rating, prices, services, gallery photos).
 - `src/i18n/dict.ts`: every piece of copy in both languages. `en` is typed against `bg`, so a missing key fails the build.
 - `src/sections/`: page sections in reading order. `src/components/`: shared pieces. `src/lib/motion.ts`: easing and timing tokens.
+- `src/assets/img/`: the salon's photos and logo as WebP (4:5 crops, `-560`/`-1040` or `-480` widths). Keep new images small and lazy-loaded.
 - `index.html` and `en/index.html`: per-language title, description, hreflang, Open Graph and JSON-LD.
 
 ## Motion rules
@@ -27,5 +28,5 @@ Premium bilingual website (Bulgarian by default, English) for Sugar Nails, a nai
 - Inspect only the files the task needs, and do not reread unchanged files.
 - Reuse existing components and utilities; no unrelated rewrites or refactors.
 - Batch related changes, and keep progress updates and explanations short.
-- Never invent salon facts (prices, phone, hours, reviews). Leave them `null` in `src/salon.ts` and say what is missing.
+- Never invent salon facts (prices, phone, hours, reviews). Take them from sugarnails.beauty or Studio24, and say what is missing.
 - Before finishing, test desktop, tablet and mobile in both languages, plus reduced motion.

@@ -19,8 +19,12 @@
   user-select: none;
 }
 
-.inner {
+.grid {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: clamp(48px, 6vw, 112px);
+  align-items: start;
 }
 
 .title {
@@ -28,50 +32,49 @@
 }
 
 .body {
-  max-width: 36ch;
+  max-width: 34ch;
   margin-top: 32px;
   color: var(--sugar-2);
 }
 
 .steps {
   position: relative;
-  margin-top: clamp(64px, 8vw, 112px);
-  padding-top: 48px;
+  margin-top: clamp(48px, 5vw, 72px);
+  padding-left: 44px;
 }
 
 .rail {
   position: absolute;
-  top: 7px;
-  left: 0;
-  right: 0;
-  height: 1px;
+  top: 0;
+  bottom: 0;
+  left: 7px;
+  width: 1px;
   background: var(--line);
 }
 
 .fill {
   position: absolute;
   inset: 0;
-  background: var(--cherry-glow);
-  transform-origin: left center;
+  background: var(--pink);
+  transform-origin: center top;
 }
 
 .list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px clamp(32px, 4vw, 72px);
+  gap: 36px;
 }
 
 .step {
   position: relative;
   display: grid;
-  gap: 10px;
+  gap: 8px;
   align-content: start;
 }
 
 .dot {
   position: absolute;
-  top: -48px;
-  left: 0;
+  top: 2px;
+  left: -44px;
   display: grid;
   place-items: center;
   width: 15px;
@@ -85,7 +88,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--cherry-glow);
+  background: var(--pink);
 }
 
 .stepNum {
@@ -104,38 +107,51 @@
   color: var(--sugar-2);
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 24px 36px;
-  margin-top: clamp(64px, 7vw, 104px);
+.fallback {
+  margin-top: clamp(40px, 5vw, 64px);
+  font-size: var(--t-small);
+  line-height: 2;
+  color: var(--sugar-2);
+}
+
+.widget {
+  position: relative;
+  height: min(820px, 88svh);
+  min-height: 560px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--velvet-2);
+  box-shadow: 0 40px 90px rgb(0 0 0 / 0.45);
+}
+
+.widget::before {
+  content: attr(data-loading);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: var(--t-label);
+  font-weight: 620;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--sugar-3);
+}
+
+.widget iframe {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 @media (max-width: 899px) {
-  .steps {
-    padding: 0 0 0 44px;
-  }
-
-  .rail {
-    top: 0;
-    bottom: 0;
-    left: 7px;
-    right: auto;
-    width: 1px;
-    height: auto;
-  }
-
-  .fill {
-    transform-origin: center top;
-  }
-
-  .list {
+  .grid {
     grid-template-columns: 1fr;
   }
 
-  .dot {
-    top: 2px;
-    left: -44px;
+  .widget {
+    height: 82svh;
   }
 }

@@ -5,11 +5,12 @@ import { StickyBook } from './components/StickyBook.tsx'
 import type { Lang } from './i18n/dict.ts'
 import { LanguageProvider } from './i18n/LanguageProvider.tsx'
 import { Booking } from './sections/Booking.tsx'
-import { Finishes } from './sections/Finishes.tsx'
 import { Footer } from './sections/Footer.tsx'
+import { Gallery } from './sections/Gallery.tsx'
 import { Hero } from './sections/Hero.tsx'
 import { Manifesto } from './sections/Manifesto.tsx'
 import { Services } from './sections/Services.tsx'
+import { Studio } from './sections/Studio.tsx'
 import { Visit } from './sections/Visit.tsx'
 
 // Animation features arrive in their own chunk, after first paint.
@@ -28,7 +29,8 @@ export default function App({ initialLang }: { initialLang: Lang }) {
               <Hero />
               <Manifesto />
               <Services />
-              <Finishes />
+              <Gallery />
+              <Studio />
               <Booking />
               <Visit />
             </main>

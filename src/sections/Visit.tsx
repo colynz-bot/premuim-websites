@@ -30,13 +30,11 @@ export function Visit() {
               {t.visit.maps} ↗{newTab}
             </a>
             <a className="ghost" href={salon.instagram.url} target="_blank" rel="noopener">
-              Instagram {salon.instagram.handle} ↗{newTab}
+              Instagram ↗{newTab}
             </a>
-            {salon.phone && (
-              <a className="ghost" href={salon.phone.href}>
-                {salon.phone.display}
-              </a>
-            )}
+            <a className="ghost" href={salon.tiktok.url} target="_blank" rel="noopener">
+              TikTok ↗{newTab}
+            </a>
           </m.div>
         </div>
 
@@ -44,26 +42,25 @@ export function Visit() {
           <m.svg className={s.star} viewBox="0 0 100 100" style={reduce ? undefined : { rotate }} aria-hidden="true">
             <path d="M50 2c3.6 27.6 18.6 42.6 48 48-29.4 5.4-44.4 20.4-48 48-3.6-27.6-18.6-42.6-48-48 29.4-5.4 44.4-20.4 48-48Z" />
           </m.svg>
-          <m.div className={s.hours} initial="hidden" whileInView="visible" viewport={inView} variants={fadeUp} custom={0.2}>
-            <p className="label">{t.visit.hours}</p>
-            {salon.hours ? (
-              <dl className={s.table}>
-                {salon.hours[lang].map(([days, time]) => (
-                  <div key={days} className={s.row}>
-                    <dt>{days}</dt>
-                    <dd>{time}</dd>
-                  </div>
-                ))}
-              </dl>
-            ) : (
-              <p className={s.note}>
-                {t.visit.hoursNote}{' '}
-                <a className="ghost" href={salon.studio24[lang]} target="_blank" rel="noopener">
-                  Studio24 ↗{newTab}
+          <m.dl className={s.details} initial="hidden" whileInView="visible" viewport={inView} variants={fadeUp} custom={0.2}>
+            <div className={s.block}>
+              <dt className="label">{t.visit.hours}</dt>
+              {salon.hours[lang].map(([days, time]) => (
+                <dd key={days} className={s.row}>
+                  <span>{days}</span>
+                  <span className={s.time}>{time}</span>
+                </dd>
+              ))}
+            </div>
+            <div className={s.block}>
+              <dt className="label">{t.visit.phone}</dt>
+              <dd>
+                <a className={s.phone} href={salon.phone.href}>
+                  {salon.phone.display}
                 </a>
-              </p>
-            )}
-          </m.div>
+              </dd>
+            </div>
+          </m.dl>
         </div>
       </div>
     </section>

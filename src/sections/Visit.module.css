@@ -38,36 +38,45 @@
 .star {
   width: clamp(88px, 10vw, 150px);
   fill: none;
-  stroke: var(--caramel);
+  stroke: var(--blush);
   stroke-width: 0.7;
 }
 
-.hours {
+.details {
   display: grid;
-  gap: 16px;
+  gap: 32px;
   width: 100%;
 }
 
-.table {
+.block {
   display: grid;
+  gap: 12px;
 }
 
 .row {
   display: flex;
   justify-content: space-between;
   gap: 24px;
-  padding-block: 12px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--line);
+  color: var(--sugar);
 }
 
-.row dd {
+.time {
   font-variant-numeric: tabular-nums;
   color: var(--sugar-2);
 }
 
-.note {
-  max-width: 30ch;
-  color: var(--sugar-2);
+.phone {
+  font-size: clamp(1.5rem, 2.2vw, 2.25rem);
+  font-weight: 380;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s;
+}
+
+.phone:hover {
+  color: var(--pink);
 }
 
 @media (max-width: 899px) {

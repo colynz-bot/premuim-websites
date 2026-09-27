@@ -33,16 +33,29 @@ export function Hero() {
           {t.hero.body}
         </m.p>
         <m.div className={s.actions} initial="hidden" animate="visible" variants={fadeUp} custom={0.9}>
-          <Button href={salon.studio24[lang]} external size="lg">
+          <Button href="#booking" size="lg">
             {t.hero.cta}
           </Button>
           <a className="ghost" href="#services">
             {t.hero.secondary}
           </a>
         </m.div>
-        <m.p className={s.note} initial="hidden" animate="visible" variants={fadeUp} custom={1.05}>
-          {t.hero.note}
-        </m.p>
+        <m.a
+          className={s.rating}
+          href={salon.studio24[lang]}
+          target="_blank"
+          rel="noopener"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          custom={1.05}
+        >
+          <span className={s.stars} aria-hidden="true">
+            ★★★★★
+          </span>
+          {t.hero.rating(salon.rating.score, salon.rating.reviews)}
+          <span className="sr-only"> {t.common.newTab}</span>
+        </m.a>
       </m.div>
     </section>
   )

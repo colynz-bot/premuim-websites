@@ -25,7 +25,8 @@ Le site est ensuite disponible sur http://localhost:5173 (et http://localhost:51
 ## Modifier le contenu
 
 - **Textes** (bulgare et anglais) : `src/i18n/dict.ts`.
-- **Infos du salon** (liens, services, finitions) : `src/salon.ts`. Le téléphone et les horaires valent `null` tant qu'ils ne sont pas confirmés. Remplissez-les et ils s'affichent automatiquement.
+- **Infos du salon** (téléphone, horaires, prix, liens, widget Studio24, note) : `src/salon.ts`.
+- **Photos et logo** : `src/assets/img/` (WebP). Pour changer une photo de la galerie, remplacez le fichier en gardant le même nom.
 - **Référencement** (titre, description, image de partage) : `index.html` et `en/index.html`.
 
 Le brief et la direction artistique sont décrits dans `brief.md`, les règles de code dans `CLAUDE.md`.
